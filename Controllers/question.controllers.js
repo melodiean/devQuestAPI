@@ -15,31 +15,35 @@ await Question.find({},{question:1},(err,quests)=>{
 
 // Get a particular question from the database
 exports.get_question = async (req,res)=>{
-
-       await Question.findById(req.params.questionId,(err,quest)=>{
-        if(err){
-            res.json({Error:err.message});
+    try{
+        await Question.findById(req.params.questionId,(err,quest)=>{
+         if(err){
+             res.json({Error:err.message});
+         }
+         res.json({"Question":quest.question,
+     "Answers": quest.answer_info.answers});
+        });
+         res.end();
         }
-        res.json(quest);
-       });
-        res.end();
+        catch(err){
+            res.send("Question not found!")
+             console.log(err)
+         }
 }
 
 // Post a question
 exports.post_question = (req,res)=>{
-    const newQuestion = new Question({
+    const newQuestions = new Question({
         question: req.body.question
         });
-    newQuestion.save()
-    .then((postQuestion)=>{
-        res.json({
-            postQuestion,
-            msg:"Question posted"
-
+    newQuestions.save()
+    .then((postedQuestion)=>{
+        res.json({"QnID":postedQuestion._id,
+            "Qn":postedQuestion.question,
         });
     })
     .catch((err)=>{
-        res.json({msg: "Error posting question" + console.log(err)})
+        res.json({success:false,msg: "Something went wrong" + console.log(err)})
     })
 }
 
