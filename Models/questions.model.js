@@ -1,23 +1,20 @@
 const mongoose = require("mongoose");
 
 // Question Schema
-const questionSchema = new mongoose.Schema({
+const questionSchema =
+ new mongoose.Schema({
     question: {
-        type:String
+        type:String,
+        required: true
     },
-    answer_info:{
-        answers:[{
-            answer:{
-                type:String
-            },
-            best_answer:{
-                type: Boolean,
-                required:false
-            }
-        }]
-        }
-
+    dateCreated:
+    {
+        type:Date
+    },
+    createdBy:{
+        type:String
     }
+}
 );
 
 // Question model to be exported

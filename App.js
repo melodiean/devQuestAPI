@@ -9,7 +9,7 @@ const questionsRouter = require('./Routes/questions')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv') 
 
-var port = 4000;
+var port = 8000;
 
 dotenv.config();
 App.use(express.json()); 
