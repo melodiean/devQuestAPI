@@ -10,4 +10,5 @@ An API where people can ask questions and provide responses.
 - Users can create account and login
 - Post a question
 - post an answer
+- view questions
 - view answers to questions
