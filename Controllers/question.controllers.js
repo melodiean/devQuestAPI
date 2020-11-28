@@ -5,17 +5,16 @@ exports.get_questions = async (req,res)=>{
 
 await Question.find({},(err,quests)=>{
     if(err){
-        res.json({"Error":err})
+        res.json({"Error":err}).status(404)
         console.log(err);
     }else{
         res.json(quests);
     }
 });
-
 }
 
 // Post a question
-exports.post_question = (req,res)=>{
+exports.post_question = async (req,res)=>{
     let date = new Date().toString();
         const newQuestion = new Question({
         question: req.body.question,
@@ -28,37 +27,33 @@ exports.post_question = (req,res)=>{
             "Qn":postedQuestion.question,
             dateCreated: date,
             // createdBy:
-        });
+        }).status(201);
     })
-
     .catch((err)=>{
         res.json({success:false,msg: err.message + console.log(err)})
     })
 }
 
-//search for a question in database
+//search for a question in database with a particular keyword
 
-// exports.search_question = async (req,res,next)=>{
-//     let q = []
-//    q = await Question.find({},{question:1,_id:0},(err,doc)=>{
-//         if(err) {
-//             res.json(err)
-//         }
-//         else{
-//              res.send(doc) 
-//         }
-//     })
-    
-//    q.filter(el => {
-//         let keyword = req.params.keyword
+exports.search_question = async (req,res)=>{
+    let q = [], keyword = req.params.keyword;
 
-//         let reg = new RegExp(keyword,'gi')
-//         if(el.question.match(reg)!==null){
-//             res.send(el)
-//         }
-//         res.json({"msg":`Sorry no '${keyword}' questions found! Try again`})
-//     });
-
-//     // res.end()
-
-// }
+    Question.find({},{question:1},(err,doc)=>{
+        if(err) {
+            res.json(err).status(404)
+        }
+        else{                
+        q = doc.filter(el=>{
+            let reg = new RegExp(keyword,'gi')
+            return el.question.match(reg)!==null
+        })
+        if(q.length==0){
+            return res.json({msg:`Sorry, no '${keyword}' questions found! Try again!`})
+        }
+        res.json(q).status(200)
+    }  
+     
+    })
+   
+}

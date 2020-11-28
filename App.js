@@ -38,7 +38,7 @@ db.once('open',(err)=>{
 });
 
 App.get('/',function(req,res){
-    res.json({message:'From the App!'});
+    res.json({message:'From the App!'}).status(200);
 });
 
 // App.use('/', indexRouter)
