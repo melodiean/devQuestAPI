@@ -13,7 +13,15 @@ const questionSchema =
     },
     createdBy:{
         type:String
-    }
+    },  
+    answers:[{
+        answer: String,
+        best_answer: {
+            type: Boolean,
+            default:false,
+            required: false
+        }
+    }]
 }
 );
 

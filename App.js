@@ -4,10 +4,10 @@ const App = express()
 
 // const indexRouter = require('./Routes/index')
 
-const questionsRouter = require('./Routes/questions')
-
 const mongoose = require('mongoose')
 const dotenv = require('dotenv') 
+
+const questionsRouter = require('./Routes/questions')
 
 var port = 8000;
 
@@ -15,9 +15,11 @@ dotenv.config();
 App.use(express.json()); 
 App.use(express.urlencoded({ extended: true })); 
 
-const apiDb = process.env.dataBase;
+// const apiDb = process.env.dataBase;
 
-mongoose.connect(apiDb, {
+App.use('/', questionsRouter)
+
+mongoose.connect('mongodb://localhost/group4', {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     useFindAndModify: false, 
@@ -37,12 +39,9 @@ db.once('open',(err)=>{
 
 App.get('/',function(req,res){
     res.json({message:'From the App!'});
-
 });
 
 // App.use('/', indexRouter)
-
-App.use('/', questionsRouter)
 
 App.listen(port,function(){
     console.log(`App is running at http://localhost:${port}/`); 
