@@ -19,7 +19,7 @@ exports.post_question = async (req,res)=>{
         const newQuestion = new Question({
         question: req.body.question,
         dateCreated: date
-        // createdBy:
+        // createdBy: 
         });
     newQuestion.save()
     .then((postedQuestion)=>{
@@ -54,6 +54,27 @@ exports.search_question = async (req,res)=>{
         res.json(q).status(200)
     }  
      
-    })
-   
+    })  
 }
+
+// most answered question
+exports.most_answers = async (req,res)=>{
+
+    try{
+        let mostAnswered = [];
+        mostAnswered.length = 3;
+
+          await Question.find({}, (err,ans)=>{
+
+       mostAnswered = ans.sort((a,b)=>{
+           return b.answer_info.answers.length - a.answer_info.answers.length}).question
+
+       })
+
+       res.send(mostAnswered)
+   }
+   catch(err){
+       console.log(err);
+   }
+
+   } 
