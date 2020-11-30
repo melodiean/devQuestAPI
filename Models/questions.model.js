@@ -9,11 +9,39 @@ const questionSchema =
     },
     dateCreated:
     {
-        type:Date
+        type:Date,
+        default: Date.now()
     },
     createdBy:{
-        type:String
-    }  
+        type:String // indicates user who posted the question
+    },  
+    answer_info:[{
+        answer: String,
+        comments: [{
+            type: String,
+            comment: String,
+            createdBy: String, // indicates user who posted the answer
+            required: false
+        }],
+        vote:{
+            upvote:{
+                type: Boolean,
+                default: false,
+                required: false
+            },
+            downvote:{
+                type: Boolean,
+                default: false,
+                required: false
+            }
+        },
+        // here an answer can be marked as the preferred one
+        best_answer: {
+            type: Boolean,
+            default:false,
+            required: false
+        }
+    }]
 }
 );
 
