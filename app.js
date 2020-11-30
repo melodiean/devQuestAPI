@@ -3,8 +3,11 @@ const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const userRouter = require('./routes/users')
+
+const questionsRouter = require('./Routes/questions')
 // const {auth} = require('./controllers/auth')
 const db = require("./config/config").get(process.env.NODE_ENV);
+// const indexRouter = require('./Routes/index')
 
 const app = express();
 const dotenv = require('dotenv') 
@@ -15,6 +18,8 @@ dotenv.config()
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookieParser());
+
+// const apiDb = process.env.dataBase;
 
 // database connection
 mongoose.Promise = global.Promise;
@@ -60,6 +65,8 @@ app.get('/',(req,res)=>{
 });
 
 app.use('/', userRouter)
+app.use('/', questionsRouter)
+
 
 // listening port
 const PORT = process.env.PORT || 4000;
