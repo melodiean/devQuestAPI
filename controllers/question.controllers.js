@@ -88,3 +88,13 @@ exports.most_answers = async (req, res) => {
     console.log(err);
   }
 };
+
+exports.delete_question = async (req, res) => {
+  Question.findByIdAndRemove({_id:req.params.id}, function (err) {
+    if(err){
+      res.json({Error: err})
+    }
+    res.json({message: "Your question has been removed"})
+    console.log('removed the question')
+  });
+}
