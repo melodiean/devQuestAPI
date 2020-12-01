@@ -7,7 +7,7 @@ exports.get_questions = async (req, res) => {
       res.json({ Error: err }).status(404);
       console.log(err);
     } else {
-      res.json(quests);
+      res.json(quests)
     }
   });
 };
@@ -17,7 +17,7 @@ exports.post_question = async (req, res) => {
   //   let date = new Date().toString();
   const newQuestion = new Question({
     question: req.body.question,
-    // createdBy:
+    createdBy: req.user.firstname
   });
   newQuestion
     .save()
@@ -25,8 +25,9 @@ exports.post_question = async (req, res) => {
       res
         .json({
           msg: "Posted!",
+          dateCreated: postedQuestion.dateCreated,
           Qn: postedQuestion.question,
-          // createdBy:
+          createdBy: req.user.firstname
         })
         .status(201);
     })
@@ -55,23 +56,6 @@ exports.search_question = async (req, res) => {
         });
       }
       res.json(q).status(200);
-    }
-  });
-};
-
-// post an answer to a question
-exports.post_answer = (req, res) => {
-  let questionId = req.params.questionId;
-  let answer = req.body.answer;
-
-  Question.findById(questionId, (er, doc) => {
-    if (er) {
-      res.json({ Error: "Question not found!" }).status(404);
-      console.log(`Error: ${err}`);
-    } else {
-      doc.answer_info.push({ answer: answer });
-      doc.save();
-      res.json(doc);
     }
   });
 };

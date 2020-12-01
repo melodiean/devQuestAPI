@@ -4,7 +4,7 @@ const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const userRouter = require('./routes/users')
 
-const questionsRouter = require('./Routes/questions')
+const questionsRouter = require('./routes/questions')
 // const {auth} = require('./controllers/auth')
 const db = require("./config/config").get(process.env.NODE_ENV);
 // const indexRouter = require('./Routes/index')

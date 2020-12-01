@@ -12,15 +12,21 @@ const questionSchema =
         type:Date,
         default: Date.now()
     },
-    createdBy:{
-        type:String // indicates user who posted the question
+    createdBy:{// indicates user who posted the question
+        type:String, 
+        required: false
     },  
     answer_info:[{
         answer: String,
+        createdBy: String, // user that posted the answer
         comments: [{
             type: String,
             comment: String,
-            createdBy: String, // indicates user who posted the answer
+            createdBy:  // indicates user who posted the comment
+            {
+                type: String,
+                required: false
+            },
             required: false
         }],
         vote:{
