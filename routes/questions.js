@@ -14,7 +14,7 @@ router.post('/questions', auth, post_question)
 
 router.post('/questions/:questionId/answers', auth, post_answer)
 
-router.put('/questions/:questionId/answers/:answerId/comments', auth, comment_answer)
+// router.put('/questions/:questionId/answers/:answerId/comments', auth, comment_answer)
 
 router.get('/questions/search/:keyword', search_question)
 

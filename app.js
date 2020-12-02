@@ -35,30 +35,14 @@ mongoose.connect(db,
   }
 );
 
-// var db = mongoose.connection
-
-// db.on('error', console.error.bind(console,'Connection Failed: '));
-
-// db.once('open',(err)=>{
-//     if(err){
-//         console.log(err);
-//     }
-//     console.log('Database Connected!'); 
-// });
-
-
-
-// app.get("/", function (req, res) {
-//   res.status(200).send(`Welcome to login , sign-up api`);
-// });
 
 app.get('/',(req,res)=>{
   res.send('Welcome to G4C4 Edu Api!');
 
 });
 
-app.use('/', userRouter)
-app.use('/', questionsRouter)
+app.use('/api/v1', userRouter)
+app.use('/api/v1', questionsRouter)
 
 
 // listening port
