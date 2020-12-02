@@ -33,7 +33,7 @@ mongoose.connect(
 },
   function (err) {
     if (err) console.log(err);
-    console.log("database is connected");
+    console.log("Database connected");
   }
 );
 
@@ -55,12 +55,7 @@ mongoose.connect(
 // });
 
 app.get('/',(req,res)=>{
-  if(err) {
-      console.log(err);
-  }
-  else{
-  res.json({message:'From Edu Api!'});
-  }
+  res.send('Welcome to G4C4 Edu Api!');
 
 });
 
@@ -69,15 +64,7 @@ app.use('/', questionsRouter)
 
 
 // listening port
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`app is live at ${PORT}`);
-//   try{
-//     console.log(`Api is running at http://localhost:${port}/`); 
-// }
-// catch(err){
-//     console.log(
-//     `Error: ${err.message}`
-//     );
-// }
+  console.log(`App is live at http:/localhost/${PORT}`);
 });

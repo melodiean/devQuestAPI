@@ -20,31 +20,26 @@ const questionSchema =
         answer: String,
         createdBy: String, // user that posted the answer
         comments: [{
-            type: String,
             comment: String,
-            createdBy:  // indicates user who posted the comment
-            {
-                type: String,
-                required: false
-            },
-            required: false
+            createdBy: String, // indicates user who posted the comment
+            // required: false
         }],
         vote:{
             upvote:{
                 type: Boolean,
-                default: false,
+                // default: false,
                 required: false
             },
             downvote:{
                 type: Boolean,
-                default: false,
+                // default: false,
                 required: false
             }
         },
         // here an answer can be marked as the preferred one
         best_answer: {
             type: Boolean,
-            default:false,
+            // default:false,
             required: false
         }
     }]

@@ -78,6 +78,6 @@ exports.profile = function (req, res) {
 exports.logout = function (req, res) {
   req.user.deleteToken(req.token, (err, user) => {
     if (err) return res.status(400).send(err);
-    res.sendStatus(200);
+    res.sendStatus(400).json("Successfully Logged Out");
   });
 };
