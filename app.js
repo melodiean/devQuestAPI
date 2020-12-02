@@ -36,7 +36,7 @@ mongoose.connect(db,
 );
 
 
-app.get('/',(req,res)=>{
+app.get('/api/v1',(req,res)=>{
   res.send('Welcome to G4C4 Edu Api!');
 
 });
