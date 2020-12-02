@@ -2,17 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const userRouter = require('./routes/users')
-
-const questionsRouter = require('./routes/questions')
-// const {auth} = require('./controllers/auth')
-const db = require("./config/config").get(process.env.NODE_ENV);
-// const indexRouter = require('./Routes/index')
-
 const app = express();
 const dotenv = require('dotenv') 
 
+const userRouter = require('./routes/users')
+const questionsRouter = require('./routes/questions')
+
 dotenv.config()
+
+// const db = require("./config/config").get(process.env.apiDb);
+const db = /*process.env.apiDb ||*/ process.env.lDb
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -23,8 +22,7 @@ app.use(cookieParser());
 
 // database connection
 mongoose.Promise = global.Promise;
-mongoose.connect(
-  "mongodb://localhost/group4",
+mongoose.connect(db,
   {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
@@ -64,7 +62,7 @@ app.use('/', questionsRouter)
 
 
 // listening port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.apiPort || 5000;
 app.listen(PORT, () => {
-  console.log(`App is live at http:/localhost/${PORT}`);
+  console.log(`App is live at http://localhost/${PORT}`);
 });

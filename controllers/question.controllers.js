@@ -93,7 +93,10 @@ exports.most_answers = async (req, res) => {
 // get a particular question
 exports.get_question = (req,res)=>{
 let questionId = req.params.questionId
-Question.findById(questionId,{question:1,"answer_info.answer":1},(err,qn)=>{
+Question.findById(questionId,{question:1,
+  answer_info:1
+  // "answer_info.answer":1
+},(err,qn)=>{
   if(err){
     res.json({msg:"Question not found!"})
   }
@@ -108,11 +111,12 @@ exports.delete_question = async (req,res)=>{
   let questionId = req.params.questionId
   let user = req.user.firstname
 
-  await Question.findOne({_id:questionId,createdBy:user}, (err,qn)=>{
+  await Question.findOne({_id:questionId}, (err,qn)=>{
     if(err){
       res.json({msg:"Question not found!"})
     }
     else{
+      
       if(qn.createdBy==user){
         qn.remove()
       return res.json({msg:"Question deleted!"})
