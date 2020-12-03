@@ -11,8 +11,8 @@ const questionsRouter = require('./routes/questions')
 dotenv.config()
 
 // const db = require("./config/config").get(process.env.apiDb);
-const db = process.env.apiDb ||
-//  process.env.lDb
+const db = process.env.apiDb
+//   || process.env.lDb
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -47,7 +47,7 @@ app.use('/api/v1', questionsRouter)
 
 
 // listening port
-// const PORT = process.env.apiPort || 5000;
-// app.listen(PORT, () => {
-//   console.log(`App is live at http://localhost/${PORT}`);
-// });
+const PORT = process.env.apiPort || 5000;
+app.listen(PORT, () => {
+  console.log(`App is live at http://localhost/${PORT}`);
+});
