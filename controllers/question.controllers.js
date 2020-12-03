@@ -93,15 +93,14 @@ exports.most_answers = async (req, res) => {
 // get a particular question
 exports.get_question = (req,res)=>{
 let questionId = req.params.questionId
-Question.findById(questionId,{question:1,
+Question.findById(questionId,{question:1, createdBy:1,
   answer_info:1
-  // "answer_info.answer":1
 },(err,qn)=>{
   if(err){
     res.json({msg:"Question not found!"})
   }
   
-  res.json({"Qn":qn.question,"Ans":qn.answer_info})
+  res.json({"Qn":qn.question,"createdBy":qn.createdBy,"Ans":qn.answer_info})
 }
 )}
 
@@ -127,13 +126,3 @@ exports.delete_question = async (req,res)=>{
     
 })
 }
-
-// exports.delete_question = async (req, res) => {
-//   Question.findByIdAndRemove({_id:req.params.id}, function (err) {
-//     if(err){
-//       res.json({Error: err})
-//     }
-//     res.json({message: "Your question has been removed"})
-//     console.log('removed the question')
-//   });
-// }
