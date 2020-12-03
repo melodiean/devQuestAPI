@@ -8,7 +8,7 @@ exports.post_answer = (req, res) => {
     Question.findById(questionId, (er, doc) => {
       if (er) {
         res.json({ Error: "Question not found!" }).status(404);
-        console.log(`Error: ${err}`);
+        console.log(`Error: ${er}`);
       } else {
         doc.answer_info.push({ answer: answer ,createdBy: req.user.firstname});
         doc.save();

@@ -1,0 +1,360 @@
+{
+	"id": "f4c35e09-9def-4c54-bfae-527a5a36a601",
+	"name": "G4_C4_EDU_API",
+	"description": "A simple API that lets users signup and login\n\nUsers can view questions, post answers, comment on answers, find questions by keywords, delete a question/answer",
+	"auth": null,
+	"events": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "65b5aab8-d673-4c91-a148-07986eae0398",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "80978821-a941-4475-bbce-b135235e9c9f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variables": [],
+	"order": [
+		"33078620-0bc0-45fc-962e-1e1232c8bea9",
+		"f45f6640-d1e0-4ae9-94f0-2b47ee07bfe5",
+		"3b2eb670-9449-4fc1-ac49-d22506d83796",
+		"a5d1f2de-2749-4c0e-8e63-0c944ed292b0",
+		"5ae3899c-09df-4d77-96b1-b9149f891e96",
+		"06422d30-2e3c-48f9-b0b8-cfcb4112be78",
+		"3051a450-c7e7-4f7f-af2c-7785944d2ce9",
+		"bea54a94-cbd1-445c-9f43-93e732c0030d",
+		"d97d5d19-606b-465b-8698-ecce6fdc96e0",
+		"5948d0f9-056d-4dbf-8890-d75472c18328",
+		"73b4afe7-0960-4e36-9b77-99b5d7060a39",
+		"3a8b2eb9-77cd-4460-88c1-ca0663f710a8",
+		"d2bc68c8-ddc0-48f9-810e-03a24d674a31",
+		"53ab3e5a-e577-4436-8e89-95a51263e798",
+		"86f8429f-0e32-4cec-86c1-80bdb450a905",
+		"2b4b67c7-c592-4db8-bce3-8db7e30827a7"
+	],
+	"folders_order": [],
+	"protocolProfileBehavior": {},
+	"folders": [],
+	"requests": [
+		{
+			"id": "06422d30-2e3c-48f9-b0b8-cfcb4112be78",
+			"name": "Post an Answer",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/:questionId/answers",
+			"description": "Add an answer to a specified question",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": null,
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "2b4b67c7-c592-4db8-bce3-8db7e30827a7",
+			"name": "Update an Answer",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/:questionId/answers/:answerId/",
+			"description": "Update answer by user who created it",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": null,
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "3051a450-c7e7-4f7f-af2c-7785944d2ce9",
+			"name": "Logout",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/auth/logout",
+			"description": "Log user out",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "33078620-0bc0-45fc-962e-1e1232c8bea9",
+			"name": "Home",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1",
+			"description": "Link to home",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "3a8b2eb9-77cd-4460-88c1-ca0663f710a8",
+			"name": "Search for Questions",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/search/:keyword",
+			"description": "Search database with a particular keyword\nReturns questions with the given keyword",
+			"data": [],
+			"dataOptions": null,
+			"dataMode": "raw",
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"rawModeData": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "3b2eb670-9449-4fc1-ac49-d22506d83796",
+			"name": "Login",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/auth/login",
+			"description": "login a user to the database",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": null,
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "53ab3e5a-e577-4436-8e89-95a51263e798",
+			"name": "Comment an Answer",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/:questionId/answers/:answerId/comments",
+			"description": "Add comment on an answer",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": null,
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "5948d0f9-056d-4dbf-8890-d75472c18328",
+			"name": "Delete a Question",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/:questionId",
+			"description": "Remove a specifc question, only the user who created it can delete",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": null,
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "5ae3899c-09df-4d77-96b1-b9149f891e96",
+			"name": "Post a Question",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions",
+			"description": "Add a question to the database",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": null,
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "73b4afe7-0960-4e36-9b77-99b5d7060a39",
+			"name": "Popular Questions",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/popular_questions",
+			"description": "Get questions with the most answers[top 3]",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "86f8429f-0e32-4cec-86c1-80bdb450a905",
+			"name": "Fetch Questions of User",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/profile/:userId",
+			"description": "Get all questions asked by given user",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "a5d1f2de-2749-4c0e-8e63-0c944ed292b0",
+			"name": "User Profile",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/auth/profile",
+			"description": "get user profile [email,id,name]",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "bea54a94-cbd1-445c-9f43-93e732c0030d",
+			"name": "Get a Question",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/:questionId",
+			"description": "get question by id\n\ncomes with all the answers to the question",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "d2bc68c8-ddc0-48f9-810e-03a24d674a31",
+			"name": "Mark an Answer",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/:questionId/answers/:answerId",
+			"description": "Mark answer as accepted\nAvailable to the question author",
+			"data": null,
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": null,
+			"headerData": null,
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "d97d5d19-606b-465b-8698-ecce6fdc96e0",
+			"name": "Get all Questions",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/questions/",
+			"description": "Fetch all questions in the database",
+			"data": null,
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": null,
+			"headerData": null,
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		},
+		{
+			"id": "f45f6640-d1e0-4ae9-94f0-2b47ee07bfe5",
+			"name": "Register",
+			"url": "https://g4c4-edu-api.herokuapp.com/api/v1/auth/register",
+			"description": "Signup a user using email, if the email exists, register fails",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": null,
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": null,
+			"pathVariables": {}
+		}
+	]
+}
