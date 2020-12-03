@@ -42,7 +42,7 @@ exports.comment_answer = async (req, res, next) => {
 // mark answer as preferred
 exports.mark_answer = async (req, res, next) => {
   let { questionId, answerId } = req.params;
-  let nUser = req.user.firstname;
+  // let nUser = req.user.firstname;
 
   await Question.findOneAndUpdate(
     { _id: questionId, "answer_info._id": answerId },
@@ -69,9 +69,9 @@ exports.update_answer = (req, res, next) => {
     { "answer_info.$.answer": answer },
     (er, doc) => {
       if (er) {
-        return res.json("Not Found").status(404);
+        return res.json(er.message).status(404);
       }
-      res.send("Answer Updated!");
+      res.send(doc);
     }
   );
   // next();
