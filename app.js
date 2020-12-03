@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const app = express();
-const dotenv = require('dotenv') 
+const dotenv = require("dotenv");
 
-const userRouter = require('./routes/users')
-const questionsRouter = require('./routes/questions')
+const userRouter = require("./routes/users");
+const questionsRouter = require("./routes/questions");
 
-dotenv.config()
+dotenv.config();
 
 // const db = require("./config/config").get(process.env.apiDb);
-const db = /*process.env.apiDb ||*/ process.env.lDb
+const db = /*process.env.apiDb ||*/ process.env.lDb;
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -22,28 +22,26 @@ app.use(cookieParser());
 
 // database connection
 mongoose.Promise = global.Promise;
-mongoose.connect(db,
+mongoose.connect(
+  db,
   {
-    useNewUrlParser: true, 
+    useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false, 
-    useCreateIndex: true
-},
+    useFindAndModify: false,
+    useCreateIndex: true,
+  },
   function (err) {
     if (err) console.log(err);
     console.log("Database connected");
   }
 );
 
-
-app.get('/api/v1',(req,res)=>{
-  res.send('Welcome to G4C4 Edu Api!');
-
+app.get("/api/v1", (req, res) => {
+  res.send("Welcome to G4C4 Edu Api!");
 });
 
-app.use('/api/v1', userRouter)
-app.use('/api/v1', questionsRouter)
-
+app.use("/api/v1", userRouter);
+app.use("/api/v1", questionsRouter);
 
 // listening port
 const PORT = process.env.apiPort || 5000;
