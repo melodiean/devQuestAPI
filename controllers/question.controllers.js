@@ -2,12 +2,12 @@ const Question = require("../models/questions.model");
 
 //Get all questions from database
 exports.get_questions = async (req, res) => {
-  await Question.find({},{question:1},(err, quests) => {
+  await Question.find({}, { question: 1 }, (err, quests) => {
     if (err) {
       res.json({ Error: err }).status(404);
       console.log(err);
     } else {
-      res.send(quests)
+      res.send(quests);
     }
   });
 };
@@ -17,7 +17,7 @@ exports.post_question = async (req, res) => {
   //   let date = new Date().toString();
   const newQuestion = new Question({
     question: req.body.question,
-    createdBy: req.user.firstname
+    createdBy: req.user.firstname,
   });
   newQuestion
     .save()
@@ -27,7 +27,7 @@ exports.post_question = async (req, res) => {
           msg: "Posted!",
           dateCreated: postedQuestion.dateCreated,
           Qn: postedQuestion.question,
-          createdBy: req.user.firstname
+          createdBy: req.user.firstname,
         })
         .status(201);
     })
@@ -89,48 +89,51 @@ exports.most_answers = async (req, res) => {
   }
 };
 
-
 // get a particular question
-exports.get_question = (req,res)=>{
-let questionId = req.params.questionId
-Question.findById(questionId,{question:1, createdBy:1,
-  answer_info:1
-},(err,qn)=>{
-  if(err){
-    res.json({msg:"Question not found!"})
-  }
-  
-  res.json({"Qn":qn.question,"createdBy":qn.createdBy,"Ans":qn.answer_info})
-}
-)}
+exports.get_question = (req, res) => {
+  let questionId = req.params.questionId;
+  Question.findById(
+    questionId,
+    { question: 1, createdBy: 1, answer_info: 1 },
+    (err, qn) => {
+      if (err) {
+        res.json({ msg: "Question not found!" });
+      }
+
+      res.json({
+        Qn: qn.question,
+        createdBy: qn.createdBy,
+        Ans: qn.answer_info,
+      });
+    }
+  );
+};
 
 // delete a question
 
-exports.delete_question = async (req,res)=>{
-  let questionId = req.params.questionId
-  let user = req.user.firstname
+exports.delete_question = async (req, res) => {
+  let questionId = req.params.questionId;
+  let user = req.user.firstname;
 
-  await Question.findOne({_id:questionId}, (err,qn)=>{
-    if(err){
-      res.json({msg:"Question not found!"})
-    }
-    else{
-      
-      if(qn.createdBy==user){
-        qn.remove()
-      return res.json({msg:"Question deleted!"})
-      
+  await Question.findOne({ _id: questionId }, (err, qn) => {
+    if (err) {
+      res.json({ msg: "Question not found!" });
+    } else {
+      if (qn.createdBy == user) {
+        qn.remove();
+        return res.json({ msg: "Question deleted!" });
       }
-      res.json({msg:`Sorry, only ${qn.createdBy} can delete this question!`})
+      res.json({
+        msg: `Sorry, only ${qn.createdBy} can delete this question!`,
+      });
     }
-    
-})
-}
+  });
+};
 
 // get all questions ever asked by user
 exports.user_questions = (req, res) => {
   let user = req.params.userId;
-  let userId = req.user._id
+  let userId = req.user._id;
 
   Question.find({ createdBy: user }, { question: 1 }, (err, doc) => {
     if (err) {

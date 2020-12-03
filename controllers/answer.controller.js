@@ -44,7 +44,7 @@ exports.mark_answer = async (req, res, next) => {
   let { questionId, answerId } = req.params;
   // let nUser = req.user.firstname;
 
-  await Question.findOneAndUpdate(
+  let ansU = await Question.findOneAndUpdate(
     { _id: questionId, "answer_info._id": answerId },
     { "answer_info.$.best_answer": true },
     (err, doc) => {
@@ -52,27 +52,36 @@ exports.mark_answer = async (req, res, next) => {
         console.log(err);
         return res.json("Server Error!");
       }
-      res.json(doc);
+return doc
     }
   );
+  if (Boolean(ansU) == false) {
+    return res.send("Unauthorized!");
+  }
+  res.send("Answer marked as Preferred!");
   // next();
 };
 
 // update an answer
-exports.update_answer = (req, res, next) => {
+exports.update_answer = async (req, res, next) => {
   let answer = req.body.answer;
   let { answerId } = req.params;
   let nUser = req.user.firstname;
 
-  Question.findOneAndUpdate(
+  let upAns = await Question.findOneAndUpdate(
     { "answer_info._id": answerId, "answer_info.createdBy": nUser },
     { "answer_info.$.answer": answer },
     (er, doc) => {
       if (er) {
-        return res.json(er.message).status(404);
+        res.json(er.message).status(404);
       }
-      res.send(doc);
+      return doc;
     }
   );
+
+  if (Boolean(upAns) == false) {
+    return res.send("Unauthorized!");
+  }
+  res.send("Answer Updated!");
   // next();
 };
