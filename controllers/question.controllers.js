@@ -118,7 +118,7 @@ exports.get_question = async (req, res, next) => {
 exports.delete_question = (req, res, next) => {
   let questionId = req.params.questionId;
   let user = req.user.firstname;
-
+  
   Question.findById(questionId, (err, qn) => {
     if (err) {
       res.json({ msg: "Question not found!" });
@@ -161,13 +161,3 @@ exports.user_questions = (req, res) => {
   });
   // next();
 };
-
-// exports.delete_question = async (req, res) => {
-//   Question.findByIdAndRemove({_id:req.params.id}, function (err) {
-//     if(err){
-//       res.json({Error: err})
-//     }
-//     res.json({message: "Your question has been removed"})
-//     console.log('removed the question')
-//   });
-// }

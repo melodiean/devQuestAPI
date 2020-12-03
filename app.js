@@ -10,15 +10,13 @@ const questionsRouter = require("./routes/questions");
 
 dotenv.config();
 
-// const db = require("./config/config").get(process.env.apiDb);
-const db = /*process.env.apiDb ||*/ process.env.lDb;
+const db = process.env.apiDb;
+// || process.env.lDb;
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookieParser());
-
-// const apiDb = process.env.dataBase;
 
 // database connection
 mongoose.Promise = global.Promise;
@@ -44,7 +42,7 @@ app.use("/api/v1", userRouter);
 app.use("/api/v1", questionsRouter);
 
 // listening port
-const PORT = process.env.apiPort || 5000;
+const PORT = process.env.PORT || process.env.apiPort;
 app.listen(PORT, () => {
-  console.log(`App is live at http://localhost/${PORT}`);
+  console.log(`App is live at http://localhost:${PORT}`);
 });

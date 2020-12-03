@@ -16,7 +16,7 @@ const {
 const {
   post_answer,
   comment_answer,
-  vote_answer,
+  // vote_answer,
   mark_answer,
   update_answer,
 } = require("../controllers/answer.controller");
@@ -46,8 +46,12 @@ router.put(
 
 // router.put('/questions/:questionId/answers/:answerId/:vote', vote_answer)
 
-router.put("/questions/:questionId/answers/:answerId/", auth, mark_answer);
+router.put("/questions/:questionId/answers/:answerId/mark", auth, mark_answer);
 
-router.put("/questions/:questionId/answers/:answerId/", auth, update_answer);
+router.put(
+  "/questions/:questionId/answers/:answerId/update",
+  auth,
+  update_answer
+);
 
 module.exports = router;

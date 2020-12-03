@@ -40,28 +40,22 @@ exports.comment_answer = async (req, res, next) => {
 };
 
 // mark answer as preferred
-exports.mark_answer = (req, res, next) => {
+exports.mark_answer = async (req, res, next) => {
   let { questionId, answerId } = req.params;
   let nUser = req.user.firstname;
 
-  Question.findOne(
+  await Question.findOneAndUpdate(
     { _id: questionId, "answer_info._id": answerId },
-    // ,{'answer_info.$':1}
-    (er, doc) => {
-      if (er) {
-        throw er;
+    { "answer_info.$.best_answer": true },
+    (err, doc) => {
+      if (err) {
+        console.log(err);
+        return res.json("Server Error!");
       }
-      if (nUser == doc.createdBy) {
-        doc.answer_info[0].best_answer = true;
-        doc.save();
-
-        return res.send(doc);
-      } else {
-        res.send("Not Authorized").status(401);
-      }
+      res.json(doc);
     }
   );
-  next();
+  // next();
 };
 
 // update an answer
