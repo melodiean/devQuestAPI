@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const confiq = require("../config/config").get(process.env.NODE_ENV);
+// const process.env.SECRET = require("../config/config").get(process.env.NODE_ENV);
 const salt = 10;
 
 var mongoose = require("mongoose");
@@ -79,7 +79,7 @@ userSchema.methods.generateToken = function (cb) {
 userSchema.statics.findByToken = function (token, cb) {
   var user = this;
 
-  jwt.verify(token, confiq.SECRET, function (err, decode) {
+  jwt.verify(token, process.env.SECRET, function (err, decode) {
     user.findOne({ _id: decode, token: token }, function (err, user) {
       if (err) return cb(err);
       cb(null, user);
