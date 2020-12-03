@@ -126,3 +126,17 @@ exports.delete_question = async (req,res)=>{
     
 })
 }
+
+// get all questions ever asked by user
+exports.user_questions = (req, res) => {
+  let user = req.params.userId;
+  let userId = req.user._id
+
+  Question.find({ createdBy: user }, { question: 1 }, (err, doc) => {
+    if (err) {
+      return res.json({ err: "User not found!" });
+    }
+    res.json(doc);
+  });
+  // next();
+};
