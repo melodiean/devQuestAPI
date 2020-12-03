@@ -37,6 +37,7 @@ exports.login_user = function (req, res) {
       });
     else {
       User.findOne({ email: req.body.email }, function (err, user) {
+        if(err) throw err
         if (!user)
           return res.json({
             isAuth: false,
