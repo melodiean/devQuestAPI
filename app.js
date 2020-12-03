@@ -47,7 +47,7 @@ app.use('/api/v1', questionsRouter)
 
 
 // listening port
-const PORT = process.env.apiPort || 5000;
-app.listen(PORT, () => {
-  console.log(`App is live at http://localhost/${PORT}`);
-});
+// const PORT = process.env.apiPort || 5000;
+// app.listen(PORT, () => {
+//   console.log(`App is live at http://localhost/${PORT}`);
+// });
