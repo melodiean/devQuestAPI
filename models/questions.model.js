@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
 
 // Question Schema
-const questionSchema =
- new mongoose.Schema({
-    question: {
-        type:String,
-        required: true
-    },
-    dateCreated:
-    {
-        type:Date,
-        default: Date.now()
-    },
+const questionSchema = new mongoose.Schema({
+  question: {
+    type: String,
+    required: true,
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now(),
+  },
+  createdBy: {
+    // indicates user who posted the question
+    type: String,
+    required: false,
+  },
     createdBy:{// indicates user who posted the question
         type:String, 
         required: false
@@ -56,11 +59,13 @@ const questionSchema =
             type: Date,
             default: Date.now()
         }
-    }]
+    }
+
+]
 }
 );
 
 // Question model to be exported
-const Question = mongoose.model('Question', questionSchema)
+const Question = mongoose.model("Question", questionSchema);
 
-module.exports = Question
+module.exports = Question;

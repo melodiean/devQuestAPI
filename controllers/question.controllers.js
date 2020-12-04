@@ -10,6 +10,7 @@ exports.getQuestions = async (req, res) => {
       res.json(doc);
     }
   });
+  next();
 };
 
 // Post a question
@@ -33,6 +34,7 @@ exports.postQuestion = async (req, res) => {
     .catch((err) => {
       res.json({ success: false, msg: err.message + console.log(err) });
     });
+  // next();
 };
 
 //search for a question in database with a particular keyword
@@ -57,6 +59,8 @@ exports.searchQuestion = async (req, res) => {
       res.json(searchedQuest).status(200);
     }
   });
+
+  next();
 };
 
 // the top 3 most answered questions
@@ -86,6 +90,7 @@ exports.mostAnswers = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  next();
 };
 
 // get a particular question
