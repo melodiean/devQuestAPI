@@ -5,53 +5,53 @@ const router = express.Router();
 const { auth } = require("../controllers/auth");
 
 const {
-  get_questions,
-  post_question,
-  search_question,
-  most_answers,
-  user_questions,
-  get_question,
-  delete_question,
+  getQuestions,
+  postQuestion,
+  searchQuestion,
+  mostAnswers,
+  userQuestions,
+  getQuestion,
+  deleteQuestion,
 } = require("../controllers/question.controllers");
 const {
-  post_answer,
-  comment_answer,
-  // vote_answer,
-  mark_answer,
-  update_answer,
+  postAnswer,
+  commentAnswer,
+  // voteAnswer,
+  markAnswer,
+  updateAnswer,
 } = require("../controllers/answer.controller");
 
 // Routes
-router.get("/questions", get_questions);
+router.get("/questions", getQuestions);
 
-router.post("/questions", auth, post_question);
+router.post("/questions", auth, postQuestion);
 
-router.get("/questions/search/:keyword", search_question);
+router.get("/questions/search/:keyword", searchQuestion);
 
-router.get("/questions/popular_questions", most_answers);
+router.get("/questions/popular_questions", mostAnswers);
 
-router.get("/questions/profile/:userId", auth, user_questions);
+router.get("/questions/profile/:userId", auth, userQuestions);
 
-router.get("/questions/:questionId", get_question);
+router.get("/questions/:questionId", getQuestion);
 
-router.delete("/questions/:questionId", auth, delete_question);
+router.delete("/questions/:questionId", auth, deleteQuestion);
 
-router.post("/questions/:questionId/answers", auth, post_answer);
+router.post("/questions/:questionId/answers", auth, postAnswer);
 
 router.put(
   "/questions/:questionId/answers/:answerId/comments",
   auth,
-  comment_answer
+  commentAnswer
 );
 
 // router.put('/questions/:questionId/answers/:answerId/:vote', vote_answer)
 
-router.put("/questions/:questionId/answers/:answerId/mark", auth, mark_answer);
+router.put("/questions/:questionId/answers/:answerId/mark", auth, markAnswer);
 
 router.put(
   "/questions/:questionId/answers/:answerId/update",
   auth,
-  update_answer
+  updateAnswer
 );
 
 module.exports = router;

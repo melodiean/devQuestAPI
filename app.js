@@ -10,8 +10,10 @@ const questionsRouter = require('./routes/questions')
 
 dotenv.config()
 
-const db = process.env.apiDb
-//  || process.env.lDb
+const db = 
+// process.env.apiDb
+//  || 
+process.env.lDb
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -36,7 +38,7 @@ mongoose.connect(db,
 );
 
 app.get('/',(req,res)=>{
-  res.send('Welcome to G4C4 Edu Api!');
+  res.json('Welcome to G4C4 Edu Api!');
 
 });
 

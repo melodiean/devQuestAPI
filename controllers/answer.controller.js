@@ -1,7 +1,7 @@
 const Question = require("../models/questions.model");
 
 // post an answer to a question
-exports.post_answer = (req, res, next) => {
+exports.postAnswer = (req, res, next) => {
   let questionId = req.params.questionId;
   let answer = req.body.answer;
 
@@ -19,32 +19,32 @@ exports.post_answer = (req, res, next) => {
 };
 
 // comment on an answer
-exports.comment_answer = async (req, res, next) => {
+exports.commentAnswer = async (req, res, next) => {
   let answerId = req.params.answerId;
   let questionId = req.params.questionId;
   let comment = req.body.comment;
-  let Us = req.user.firstname;
-  let newComment = { comment: comment, createdBy: Us };
+  let user = req.user.firstname;
+  let newComment = { comment: comment, createdBy: user };
 
-  let d = await Question.findOne({
+  let userAnswer = await Question.findOne({
     _id: questionId,
     "answer_info._id": answerId,
   });
 
-  d.answer_info[0].comments.push(newComment);
+  userAnswer.answer_info[0].comments.push(newComment);
 
-  d.save();
+  userAnswer.save();
 
-  res.json(d);
+  res.json(userAnswer);
   next();
 };
 
 // mark answer as preferred
-exports.mark_answer = async (req, res, next) => {
+exports.markAnswer = async (req, res, next) => {
   let { questionId, answerId } = req.params;
   // let nUser = req.user.firstname;
 
-  let ansU = await Question.findOneAndUpdate(
+  let userAnswer = await Question.findOneAndUpdate(
     { _id: questionId, "answer_info._id": answerId },
     { "answer_info.$.best_answer": true },
     (err, doc) => {
@@ -55,21 +55,21 @@ exports.mark_answer = async (req, res, next) => {
 return doc
     }
   );
-  if (Boolean(ansU) == false) {
-    return res.send("Unauthorized!");
+  if (Boolean(userAnswer) == false) {
+    return res.json("Unauthorized!");
   }
-  res.send("Answer marked as Preferred!");
+  res.json("Answer marked as Preferred!");
   // next();
 };
 
 // update an answer
-exports.update_answer = async (req, res, next) => {
+exports.updateAnswer = async (req, res, next) => {
   let answer = req.body.answer;
   let { answerId } = req.params;
-  let nUser = req.user.firstname;
+  let user = req.user.firstname;
 
-  let upAns = await Question.findOneAndUpdate(
-    { "answer_info._id": answerId, "answer_info.createdBy": nUser },
+  let updatedAnswer = await Question.findOneAndUpdate(
+    { "answer_info._id": answerId, "answer_info.createdBy": user },
     { "answer_info.$.answer": answer },
     (er, doc) => {
       if (er) {
@@ -79,9 +79,9 @@ exports.update_answer = async (req, res, next) => {
     }
   );
 
-  if (Boolean(upAns) == false) {
-    return res.send("Unauthorized!");
+  if (Boolean(updatedAnswer) == false) {
+    return res.json("Unauthorized!");
   }
-  res.send("Answer Updated!");
+  res.json("Answer Updated!");
   // next();
 };

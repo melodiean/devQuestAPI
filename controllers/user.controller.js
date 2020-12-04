@@ -1,7 +1,7 @@
 const User = require("../models/user.model");
 
 // register user
-exports.register_user = function (req, res) {
+exports.registerUser = function (req, res) {
   // taking a user
   const newuser = new User(req.body);
 
@@ -26,19 +26,19 @@ exports.register_user = function (req, res) {
 };
 
 // log user in
-exports.login_user = async (req, res)=> {
+exports.loginUser = async (req, res) => {
   let token = req.cookies.auth;
-  
+
   await User.findByToken(token, (err, user) => {
     if (err) return res(err);
-    if (user)     
+    if (user)
       return res.status(400).json({
         error: true,
         message: `${user.firstname} is logged in!`,
       });
     else {
       User.findOne({ email: req.body.email }, function (err, user) {
-        if(err) throw err
+        if (err) throw err;
         if (!user)
           return res.json({
             isAuth: false,
@@ -53,7 +53,7 @@ exports.login_user = async (req, res)=> {
             });
 
           user.generateToken((err, user) => {
-            if (err) return res.status(400).send(err);
+            if (err) return res.status(400).json(err);
             res.cookie("auth", user.token).json({
               isAuth: true,
               id: user._id,
@@ -79,7 +79,7 @@ exports.profile = function (req, res) {
 // log user out
 exports.logout = function (req, res) {
   req.user.deleteToken(req.token, (err, user) => {
-    if (err) return res.status(400).send(err);
-    res.status(200).json("Successfully Logged Out");
+    if (err) return res.status(400).json(err);
+    res.status(200).json("Successfully Logged Out!");
   });
 };

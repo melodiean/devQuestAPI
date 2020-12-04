@@ -18,7 +18,17 @@ const questionSchema =
     },  
     answer_info:[{
         answer: String,
-        createdBy: String, // user that posted the answer
+        createdBy:  // user that posted the answer
+        [
+            {
+                userID: String,
+                username: String,
+                dateCreated: {
+                    type: Date,
+                    default: Date.now()
+                }
+            }
+    ],
         comments: [{
             comment: String,
             createdBy: String, // indicates user who posted the comment
@@ -41,6 +51,10 @@ const questionSchema =
             type: Boolean,
             // default:false,
             required: false
+        },
+        dateCreated:{
+            type: Date,
+            default: Date.now()
         }
     }]
 }

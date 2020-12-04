@@ -1,20 +1,19 @@
 const Question = require("../models/questions.model");
 
 //Get all questions from database
-exports.get_questions = async (req, res) => {
-  await Question.find({}, { question: 1 }, (err, quests) => {
+exports.getQuestions = async (req, res) => {
+  await Question.find({}, { question: 1 }, (err, doc) => {
     if (err) {
       res.json({ Error: err }).status(404);
       console.log(err);
     } else {
-      res.send(quests);
+      res.json(doc);
     }
   });
 };
 
 // Post a question
-exports.post_question = async (req, res) => {
-  //   let date = new Date().toString();
+exports.postQuestion = async (req, res) => {
   const newQuestion = new Question({
     question: req.body.question,
     createdBy: req.user.firstname,
@@ -38,30 +37,30 @@ exports.post_question = async (req, res) => {
 
 //search for a question in database with a particular keyword
 
-exports.search_question = async (req, res) => {
-  let q = [],
+exports.searchQuestion = async (req, res) => {
+  let searchedQuest = [],
     keyword = req.params.keyword;
 
   Question.find({}, { question: 1 }, (err, doc) => {
     if (err) {
       res.json(err).status(404);
     } else {
-      q = doc.filter((el) => {
+      searchedQuest = doc.filter((el) => {
         let reg = new RegExp(keyword, "gi");
         return el.question.match(reg) !== null;
       });
-      if (q.length == 0) {
+      if (searchedQuest.length == 0) {
         return res.json({
           msg: `Sorry, no '${keyword}' questions found! Try again!`,
         });
       }
-      res.json(q).status(200);
+      res.json(searchedQuest).status(200);
     }
   });
 };
 
 // the top 3 most answered questions
-exports.most_answers = async (req, res) => {
+exports.mostAnswers = async (req, res) => {
   try {
     let mostAnswered = [];
 
@@ -69,11 +68,11 @@ exports.most_answers = async (req, res) => {
       if (err) {
         return res.json({ Error: err });
       } else {
-        for (let i in ans) {
+        for (let an in ans) {
           mostAnswered.push({
-            QnID: ans[i]._id,
-            Qn: ans[i].question,
-            Ans: ans[i].answer_info.length,
+            QnID: ans[an]._id,
+            Qn: ans[an].question,
+            Ans: ans[an].answer_info.length,
           });
         }
       }
@@ -82,7 +81,7 @@ exports.most_answers = async (req, res) => {
         return b.Ans - a.Ans;
       });
       mostAnswered.length = 3;
-      res.send(mostAnswered);
+      res.json(mostAnswered);
     });
   } catch (err) {
     console.log(err);
@@ -90,48 +89,54 @@ exports.most_answers = async (req, res) => {
 };
 
 // get a particular question
-exports.get_question = (req, res) => {
+exports.getQuestion = async (req, res,next) => {
   let questionId = req.params.questionId;
-  Question.findById(
+  let quest = await Question.findById(
     questionId,
     { question: 1, createdBy: 1, answer_info: 1 },
-    (err, qn) => {
+    (err, doc) => {
       if (err) {
-        res.json({ msg: "Question not found!" });
+        console.log(err);
+        res.json("Question not found!");
       }
-
-      res.json({
-        Qn: qn.question,
-        createdBy: qn.createdBy,
-        Ans: qn.answer_info,
+      res.json(
+        {
+        Qn: doc.question,
+        createdBy: doc.createdBy,
+        Ans: doc.answer_info,
       });
     }
   );
+  
+  if(quest==undefined){
+    res.json("Question not found!")
+  }
+
 };
 
 // delete a question
 
-exports.delete_question = async (req, res) => {
+exports.deleteQuestion = async (req, res) => {
   let questionId = req.params.questionId;
   let user = req.user.firstname;
 
-  await Question.findOne({ _id: questionId }, (err, qn) => {
+  await Question.findOne({ _id: questionId }, (err, doc) => {
     if (err) {
       res.json({ msg: "Question not found!" });
     } else {
-      if (qn.createdBy == user) {
-        qn.remove();
+      if (doc.createdBy == user) {
+        doc.remove();
         return res.json({ msg: "Question deleted!" });
       }
       res.json({
-        msg: `Sorry, only ${qn.createdBy} can delete this question!`,
+        msg: `Sorry, only ${doc.createdBy} can delete this question!`,
       });
     }
   });
 };
 
 // get all questions ever asked by user
-exports.user_questions = (req, res) => {
+exports.userQuestions = (req, res) => {
   let user = req.params.userId;
   let userId = req.user._id;
 
