@@ -15,23 +15,10 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-    createdBy:{// indicates user who posted the question
-        type:String, 
-        required: false
-    },  
     answer_info:[{
         answer: String,
-        createdBy:  // user that posted the answer
-        [
-            {
-                userID: String,
-                username: String,
-                dateCreated: {
-                    type: Date,
-                    default: Date.now()
-                }
-            }
-    ],
+        createdBy: String  // user that posted the answer
+        ,
         comments: [{
             comment: String,
             createdBy: String, // indicates user who posted the comment
@@ -54,10 +41,6 @@ const questionSchema = new mongoose.Schema({
             type: Boolean,
             // default:false,
             required: false
-        },
-        dateCreated:{
-            type: Date,
-            default: Date.now()
         }
     }
 

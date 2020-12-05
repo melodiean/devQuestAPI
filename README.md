@@ -1,7 +1,6 @@
 # CoRe4-EDU-API-Group4
 
-Every change will be merged into dev after we are done.
-Once satisfied with what's on Dev, we shall merge to master.
+This is a simple EDU API.
 
 ## EDU API
 
@@ -15,3 +14,21 @@ in the form of answers and comments.
 - post an answer
 - view questions
 - view answers to questions
+
+### Languages
+
+- Javascript
+
+### Technologies
+
+- Postman 
+Test endpoints
+
+-Mongodb
+Database
+
+-Heroku
+Deployment
+
+-Pivotal Tracker
+Project Management
