@@ -122,7 +122,7 @@ exports.getQuestion = async (req, res,next) => {
 // delete a question
 
 exports.deleteQuestion = async (req, res) => {
-  let questionId = req.params.questionId;
+  let questionId = mongoose.Types.ObjectID(req.params.questionId);
   let user = req.user.firstname;
 
   await Question.findOne({ _id: questionId }, (err, doc) => {
