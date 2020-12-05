@@ -19,14 +19,14 @@ exports.postAnswer = (req, res, next) => {
 };
 
 // comment on an answer
-exports.commentAnswer = (req, res, next) => {
+exports.commentAnswer = async (req, res, next) => {
   let answerId = req.params.answerId;
   let questionId = req.params.questionId;
   let comment = req.body.comment;
   let user = req.user.firstname;
   let newComment = { comment: comment, createdBy: user };
 
-  let userAnswer = Question.findOne({
+  let userAnswer = await Question.findOne({
     _id: questionId,
     "answer_info._id": answerId,
   });
