@@ -24,11 +24,11 @@ in the form of answers and comments.
 - Postman 
 Test endpoints
 
--Mongodb
+- Mongodb
 Database
 
--Heroku
+- Heroku
 Deployment
 
--Pivotal Tracker
+- Pivotal Tracker
 Project Management
