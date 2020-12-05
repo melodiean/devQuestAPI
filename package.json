@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "core4-edu-api-group4",
-=======
-  "name": "core4_edu_api_group4",
->>>>>>> dev
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
