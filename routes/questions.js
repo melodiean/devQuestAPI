@@ -28,7 +28,7 @@ router.post("/questions", auth, postQuestion);
 
 router.get("/questions/search/:keyword", searchQuestion);
 
-router.get("/questions/popular_questions", mostAnswers);
+router.get("/questions/popular", mostAnswers);
 
 router.get("/questions/profile/:userId", auth, userQuestions);
 

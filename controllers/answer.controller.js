@@ -1,4 +1,5 @@
 const Question = require("../models/questions.model");
+const mongoose = require("mongoose");
 
 // post an answer to a question
 exports.postAnswer = (req, res, next) => {
@@ -20,16 +21,22 @@ exports.postAnswer = (req, res, next) => {
 
 // comment on an answer
 exports.commentAnswer = async (req, res, next) => {
-  let answerId = req.params.answerId;
-  let questionId = req.params.questionId;
+  let questionId = mongoose.Types.ObjectId(req.params.questionId);
+  let answerId = mongoose.Types.ObjectId(req.params.answerId);
+
   let comment = req.body.comment;
   let user = req.user.firstname;
   let newComment = { comment: comment, createdBy: user };
 
-  let userAnswer = await Question.findOne({
-    _id: questionId,
-    "answer_info._id": answerId,
-  });
+  let userAnswer = await Question.findOne(
+    {
+      _id: questionId,
+      "answer_info._id": answerId,
+    },
+    (er, doc) => {
+      if (er) res.json({ msg: "Invalid ID" });
+    }
+  );
 
   userAnswer.answer_info[0].comments.push(newComment);
 
@@ -41,25 +48,32 @@ exports.commentAnswer = async (req, res, next) => {
 
 // mark answer as preferred
 exports.markAnswer = async (req, res, next) => {
-  let { questionId, answerId } = req.params;
-  // let nUser = req.user.firstname;
+  let questionId =
+    // mongoose.Types.ObjectId(
+    req.params.questionId;
+  // );
+
+  let nUser = req.user.firstname;
 
   let userAnswer = await Question.findOneAndUpdate(
-    { _id: questionId, "answer_info._id": answerId },
-    { "answer_info.$.best_answer": true },
+    { _id: questionId, createdBy: nUser },
+    { "answer_info.0.best_answer": true },
     (err, doc) => {
       if (err) {
         console.log(err);
-        return res.json("Server Error!");
+        return err.message;
       }
-return doc
+      return doc;
     }
   );
   if (Boolean(userAnswer) == false) {
-    return res.json("Unauthorized!");
+    return res.json({ msg: "Unauthorized!" });
+  } else {
+    res.json({ msg: "Marked!", doc: userAnswer });
+    // res.json({msg:"Answer marked as Preferred!"});
   }
-  res.json("Answer marked as Preferred!");
-  // next();
+  // res.json(userAnswer)
+  next();
 };
 
 // update an answer
@@ -73,15 +87,15 @@ exports.updateAnswer = async (req, res, next) => {
     { "answer_info.$.answer": answer },
     (er, doc) => {
       if (er) {
-        res.json(er.message).status(404);
+        res.json({ msg: er.message }).status(404);
       }
       return doc;
     }
   );
 
   if (Boolean(updatedAnswer) == false) {
-    return res.json("Unauthorized!");
+    return res.json({ msg: "Unauthorized!" });
   }
-  res.json("Answer Updated!");
+  res.json({ msg: "Answer Updated!" });
   // next();
 };

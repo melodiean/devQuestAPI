@@ -1,7 +1,7 @@
 const Question = require("../models/questions.model");
-
+const mongoose = require("mongoose");
 //Get all questions from database
-exports.getQuestions = async (req, res) => {
+exports.getQuestions = async (req, res, next) => {
   await Question.find({}, { question: 1 }, (err, doc) => {
     if (err) {
       res.json({ Error: err }).status(404);
@@ -45,7 +45,7 @@ exports.searchQuestion = async (req, res) => {
 
   Question.find({}, { question: 1 }, (err, doc) => {
     if (err) {
-      res.json(err).status(404);
+      res.json({ msg: err }).status(404);
     } else {
       searchedQuest = doc.filter((el) => {
         let reg = new RegExp(keyword, "gi");
@@ -94,35 +94,32 @@ exports.mostAnswers = async (req, res) => {
 };
 
 // get a particular question
-exports.getQuestion = async (req, res,next) => {
+exports.getQuestion = async (req, res, next) => {
   let questionId = req.params.questionId;
+
   let quest = await Question.findById(
     questionId,
     { question: 1, createdBy: 1, answer_info: 1 },
     (err, doc) => {
       if (err) {
-        console.log(err);
-        res.json("Question not found!");
+        console.log(err.message);
+        res.json({ msg: "Question not found!" });
       }
-      res.json(
-        {
-        Qn: doc.question,
-        createdBy: doc.createdBy,
-        Ans: doc.answer_info,
-      });
+      return doc;
     }
   );
-  
-  if(quest==undefined){
-    res.json("Question not found!")
-  }
-
+  res.json({
+    Qn: quest.question,
+    createdBy: quest.createdBy,
+    Ans: quest.answer_info,
+  });
+  next();
 };
 
 // delete a question
 
 exports.deleteQuestion = async (req, res) => {
-  let questionId = mongoose.Types.ObjectID(req.params.questionId);
+  let questionId = mongoose.Types.ObjectId(req.params.questionId);
   let user = req.user.firstname;
 
   await Question.findOne({ _id: questionId }, (err, doc) => {
