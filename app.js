@@ -11,9 +11,9 @@ const questionsRouter = require("./routes/questions");
 dotenv.config();
 
 const db = 
-// process.env.apiDb
+process.env.apiDb
 //  || 
-process.env.lDb
+// process.env.lDb
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
