@@ -53,7 +53,7 @@ exports.loginUser = async (req, res) => {
             });
 
           user.generateToken((err, user) => {
-            if (err) return res.status(400).json(err);
+            if (err) return res.status(400).json({msg:err});
             res.cookie("auth", user.token).json({
               isAuth: true,
               id: user._id,
@@ -79,7 +79,7 @@ exports.profile = function (req, res) {
 // log user out
 exports.logout = function (req, res) {
   req.user.deleteToken(req.token, (err, user) => {
-    if (err) return res.status(400).json(err);
-    res.status(200).json("Successfully Logged Out!");
+    if (err) return res.status(400).json({msg:err});
+    res.status(200).json({msg:"Successfully Logged Out!"});
   });
 };
