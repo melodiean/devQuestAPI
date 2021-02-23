@@ -39,7 +39,7 @@ exports.postQuestion = async (req, res) => {
 
 //search for a question in database with a particular keyword
 
-exports.searchQuestion = async (req, res) => {
+exports.searchQuestion = async (req, res, next) => {
   let searchedQuest = [],
     keyword = req.params.keyword;
 
@@ -60,7 +60,7 @@ exports.searchQuestion = async (req, res) => {
     }
   });
 
-  next();
+  // next();
 };
 
 // the top 3 most answered questions
