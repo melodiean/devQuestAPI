@@ -1,7 +1,7 @@
 const Question = require("../models/questions.model");
 
 //Get all questions from database
-exports.getQuestions = async (req, res) => {
+exports.getQuestions = async (req, res, next) => {
   await Question.find({}, { question: 1 }, (err, doc) => {
     if (err) {
       res.json({ Error: err }).status(404);
@@ -39,7 +39,7 @@ exports.postQuestion = async (req, res) => {
 
 //search for a question in database with a particular keyword
 
-exports.searchQuestion = async (req, res) => {
+exports.searchQuestion = async (req, res, next) => {
   let searchedQuest = [],
     keyword = req.params.keyword;
 
@@ -60,7 +60,7 @@ exports.searchQuestion = async (req, res) => {
     }
   });
 
-  next();
+  // next();
 };
 
 // the top 3 most answered questions

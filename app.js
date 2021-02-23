@@ -4,6 +4,7 @@ const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const app = express();
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 const userRouter = require("./routes/users");
 const questionsRouter = require("./routes/questions");
@@ -19,6 +20,7 @@ process.env.lDb
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookieParser());
+app.use(cors());
 
 // database connection
 mongoose.Promise = global.Promise;
