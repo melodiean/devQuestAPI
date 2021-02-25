@@ -12,8 +12,6 @@ const questionsRouter = require("./routes/questions");
 dotenv.config();
 
 const db = process.env.apiDb;
-//  ||
-// process.env.lDb
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -45,7 +43,7 @@ app.use("/api/v1", userRouter);
 app.use("/api/v1", questionsRouter);
 
 // listening port
-const PORT = process.env.PORT || process.env.apiPort;
+const PORT = process.env.apiPort;
 app.listen(PORT, () => {
   console.log(`API is live at http://localhost:${PORT}`);
 });
