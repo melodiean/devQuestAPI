@@ -11,7 +11,8 @@ const questionsRouter = require("./routes/questions");
 
 dotenv.config();
 
-const db = process.env.apiDb;
+const db = "mongodb+srv://melo:7434@devquest.n1hef.mongodb.net/devQuest?retryWrites=true&w=majority"
+// process.env.apiDb;
 
 // app use
 app.use(bodyparser.urlencoded({ extended: false }));
