@@ -6,10 +6,11 @@ const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
 
+dotenv.config();
+
 const userRouter = require("./routes/users");
 const questionsRouter = require("./routes/questions");
 
-dotenv.config();
 
 const db = process.env.apiDb;
 
