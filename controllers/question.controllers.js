@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 exports.getQuestions = async (req, res, next) => {
   await Question.find({}, { question: 1 }, (err, doc) => {
     if (err) {
-      res.json({ Error: err }).status(404);
-      console.log(err);
+      res.json({ Error: "Error loading data..." }).status(404);
+      console.log(err.message);
     } else {
       res.json(doc);
     }

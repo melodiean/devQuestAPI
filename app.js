@@ -31,14 +31,14 @@ mongoose.connect(
     useFindAndModify: false,
     useCreateIndex: true,
   },
-  function (err) {
+  (err)=> {
     if (err) console.log(err);
-    console.log("Database connected");
+    console.log("devQuest connected!");
   }
 );
 
 app.get("/", (req, res) => {
-  res.json("Welcome to G4C4 Edu Api!");
+  res.json("Welcome to devQuest!");
 });
 
 app.use("/api/v1", userRouter);
@@ -47,5 +47,5 @@ app.use("/api/v1", questionsRouter);
 // listening port
 const PORT = process.env.PORT || process.env.apiPort;
 app.listen(PORT, () => {
-  console.log(`App is live at http://localhost:${PORT}`);
+  console.log(`API is live at http://localhost:${PORT}`);
 });

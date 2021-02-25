@@ -1,8 +1,8 @@
-# CoRe4-EDU-API-Group4
+# devQuestAPI
 
 This is a simple EDU API.
 
-## EDU API
+## QUEST API
 
 An API where people can ask questions and provide responses
 in the form of answers and comments.

@@ -8,7 +8,7 @@ const questionSchema = new mongoose.Schema({
   },
   dateCreated: {
     type: Date,
-    default: Date.now(),
+    default: new Date(),
   },
   createdBy: {
     // indicates user who posted the question
