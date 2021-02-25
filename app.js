@@ -31,7 +31,7 @@ mongoose.connect(
     useFindAndModify: false,
     useCreateIndex: true,
   },
-  (err)=> {
+  function(err){
     if (err) console.log(err);
     console.log("devQuest connected!");
   }
