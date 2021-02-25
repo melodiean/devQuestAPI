@@ -44,7 +44,7 @@ app.use("/api/v1", userRouter);
 app.use("/api/v1", questionsRouter);
 
 // listening port
-const PORT = process.env.apiPort;
+const PORT = process.env.apiPort || process.env.PORT;
 app.listen(PORT, () => {
   console.log(`API is live at http://localhost:${PORT}`);
 });

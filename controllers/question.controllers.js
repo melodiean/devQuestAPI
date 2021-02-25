@@ -2,7 +2,7 @@ const Question = require("../models/questions.model");
 const mongoose = require("mongoose");
 //Get all questions from database
 exports.getQuestions = async (req, res, next) => {
-  await Question.find({}, { question: 1 }, (err, doc) => {
+  await Question.find({},{__v:0}, (err, doc) => {
     if (err) {
       res.json({ Error: "Error loading data..." }).status(404);
       console.log(err.message);
