@@ -7,10 +7,12 @@ let auth = (req, res, next) => {
     if (!user)
       return res.json({
         error: true,
+        msg:err.message
       });
 
     req.token = token;
     req.user = user;
+    console.log(token);
     next();
   });
 };
