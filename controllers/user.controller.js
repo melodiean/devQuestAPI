@@ -59,7 +59,7 @@ exports.loginUser = async (req, res) => {
               isAuth: true,
               id: user._id,
               email: user.email,
-              token:token
+              token:user.token
             });
           });
         });
