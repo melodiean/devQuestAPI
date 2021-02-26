@@ -58,9 +58,7 @@ exports.loginUser = async (req, res) => {
             res.cookie("auth", user.token).json({
               isAuth: true,
               id: user._id,
-              email: user.email,
-              token:user.token
-            });
+              email: user.email            });
           });
         });
       });
