@@ -6,7 +6,7 @@ exports.registerUser = function (req, res) {
   const newuser = new User(req.body);
 
   if (newuser.password != newuser.password2)
-    return res.status(400).json({ message: "Password not a Match!" });
+    return res.status(400).json({ message: "Password not Match!" });
 
   User.findOne({ email: newuser.email }, function (err, user) {
     if (user)
@@ -34,7 +34,7 @@ exports.loginUser = async (req, res) => {
     if (err) return res(err);
     if (user)
       return res.status(400).json({
-        error: true,
+        error:err.message,
         message: `${user.firstname} is logged in!`,
       });
     else {
@@ -54,7 +54,7 @@ exports.loginUser = async (req, res) => {
             });
 
           user.generateToken((err, user) => {
-            if (err) return res.status(400).json({msg:err});
+            if (err) return res.status(400).json({msg:err.message});
             res.cookie("auth", user.token).json({
               isAuth: true,
               id: user._id,
