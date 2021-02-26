@@ -15,7 +15,8 @@ exports.registerUser = function (req, res) {
     newuser.save((err, doc) => {
       if (err) {
         console.log(err);
-        return res.status(400).json({ success: false });
+        return res.status(400).json({ success: false,
+        error:err.message });
       }
       res.status(200).json({
         success: true,
