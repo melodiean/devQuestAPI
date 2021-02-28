@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const session = require("cookie-session");
 const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -14,10 +15,14 @@ const questionsRouter = require("./routes/questions");
 
 const db = process.env.apiDb;
 
-// app use
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookieParser());
+// app.use(session{
+//   name:'session',
+//   secret:'mkklkhighfhryh',
+//   expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+// })
 app.use(cors());
 
 // database connection
