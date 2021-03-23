@@ -32,3 +32,16 @@ Deployment
 
 - Pivotal Tracker
 Project Management
+
+## EndPoints
+
+* API URL `https://devquestapi.herokuapp.com`
+* All endpoints are preceeded by `/api/v1`
+
+`/questions` Retrieve all questions in the database.
+
+`/questions/questionId` Retrieve a particular question.
+
+
+## Deployment
+[devQuestAPI](https://devquestapi.herokuapp.com/)
