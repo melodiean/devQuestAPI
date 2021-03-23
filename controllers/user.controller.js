@@ -34,7 +34,6 @@ exports.loginUser = async (req, res) => {
     if (err) return res(err);
     if (user)
       return res.status(400).json({
-        error:err.message,
         message: `${user.firstname} is logged in!`,
       });
     else {
