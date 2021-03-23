@@ -68,7 +68,7 @@ exports.loginUser = async (req, res) => {
 };
 
 // get user profile
-exports.profile = function (req, res,) {
+exports.profile = function (req, res,err) {
   if(err){
 res.send(err.message)
   }
