@@ -68,10 +68,7 @@ exports.loginUser = async (req, res) => {
 };
 
 // get user profile
-exports.profile = function (req, res,err) {
-  if(err){
-res.send(err.message)
-  }
+exports.profile = function (req, res) {
   return res.json({
     isAuth: true,
     id: req.user._id,
