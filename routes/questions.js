@@ -30,7 +30,7 @@ router.get("/questions/search/:keyword", searchQuestion);
 
 router.get("/questions/popular", mostAnswers);
 
-router.get("/questions/profile/:userId", auth, userQuestions);
+router.get("/questions/profile/:userId", userQuestions);
 
 router.get("/questions/:questionId", getQuestion);
 
