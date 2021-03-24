@@ -140,7 +140,7 @@ exports.deleteQuestion = async (req, res) => {
 // get all questions ever asked by user
 exports.userQuestions = (req, res) => {
   let user = req.params.userId;
-  let userId = req.user._id;
+//   let userId = req.user._id;
 
   Question.find({ createdBy: user }, { question: 1 }, (err, doc) => {
     if (err) {
