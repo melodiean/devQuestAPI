@@ -72,7 +72,7 @@ exports.profile = function (req, res,err) {
   if(err){
 res.send(err.message)
   }
-  res.json({
+  return res.json({
     isAuth: true,
     id: req.user._id,
     email: req.user.email,
